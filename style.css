@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #0a0a0a;
+    color: white;
+    text-align: center;
+}
+
+.game-container {
+    position: relative;
+}
+
+#gameCanvas {
+    background-color: #000;
+    border: 2px solid #fff;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 30px;
+    display: none;
+}
+
+#score, #maxScore, #timer {
+    margin-top: 10px;
+    font-size: 20px;
+}
