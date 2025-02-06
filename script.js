@@ -123,7 +123,6 @@ function drawAsteroids() {
 // Função para exibir o "Game Over" e pontuação
 function displayGameOver() {
     document.getElementById('gameOver').style.display = "block";  // Exibe o Game Over
-    document.getElementById('score').style.display = "none";      // Oculta a pontuação
     document.getElementById('timer').style.display = "none";      // Oculta o timer
     document.getElementById('maxScore').style.display = "block";  // Exibe a pontuação máxima
     document.getElementById('restartButton').style.display = "block"; // Exibe o botão de reinício
