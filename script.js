@@ -150,6 +150,7 @@ function gameLoop() {
         displayGameOver();
         return;
     }
+    
 
     // Atualiza a posição da nave
     shipX += shipVelocityX;
