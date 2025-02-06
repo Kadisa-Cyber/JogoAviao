@@ -170,7 +170,7 @@ function gameLoop() {
 
     // Exibe a pontuação
     document.getElementById('score').innerText = "Pontuação: " + score;
-    document.getElementById('maxScore').innerText = "Pontuação Máxima: " + maxScore;
+    document.getElementById('maxScore').innerText = "Pontuação Máxima: " + score;
 
     // Aumenta a quantidade de asteroides conforme o tempo
     if (Math.random() < 0.1 + (gameTime / 3000)) { // Chance aumenta conforme o tempo
