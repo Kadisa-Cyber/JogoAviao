@@ -12,6 +12,7 @@ let shipY = canvasHeight - shipHeight - 10;
 let shipSpeed = 5;
 
 let asteroids = [];
+let meteors = [];  // Armazena os meteoros vermelhos
 let score = 0;
 let maxScore = localStorage.getItem('maxScore') ? parseInt(localStorage.getItem('maxScore')) : 0; // Recupera a pontuação máxima salva
 let gameOver = false;
@@ -46,7 +47,7 @@ function stopShip(event) {
     }
 }
 
-// Função para criar os asteroides com posições aleatórias
+// Função para criar asteroides com posições aleatórias
 function createAsteroid() {
     const randomPosition = Math.floor(Math.random() * 4); // 4 posições possíveis
 
@@ -76,13 +77,35 @@ function createAsteroid() {
     asteroids.push({ x: x, y: y, size: asteroidSize, speed: speed, direction: randomPosition });
 }
 
+// Função para criar meteoros vermelhos a cada 500 pontos
+function createRedMeteor() {
+    const randomPosition = Math.floor(Math.random() * 2); // 2 posições possíveis (esquerda ou cima)
+
+    let x, y, speed;
+
+    switch (randomPosition) {
+        case 0: // A partir da esquerda
+            x = -shipWidth * 2; // Fora da tela à esquerda
+            y = Math.floor(Math.random() * canvasHeight); // Posição aleatória na vertical
+            break;
+        case 1: // A partir de cima
+            x = Math.floor(Math.random() * canvasWidth); // Posição aleatória na horizontal
+            y = -shipWidth * 2; // Fora da tela no topo
+            break;
+    }
+
+    speed = Math.random() * 3 + 2; // Velocidade maior que a dos asteroides
+
+    meteors.push({ x: x, y: y, size: shipWidth * 2, speed: speed, direction: randomPosition });
+}
+
 // Função para desenhar a nave
 function drawShip() {
     ctx.fillStyle = "blue";
     ctx.fillRect(shipX, shipY, shipWidth, shipHeight);
 }
 
-// Função para desenhar os asteroides
+// Função para desenhar asteroides
 function drawAsteroids() {
     ctx.fillStyle = "gray";
     for (let i = 0; i < asteroids.length; i++) {
@@ -120,6 +143,37 @@ function drawAsteroids() {
     }
 }
 
+// Função para desenhar meteoros vermelhos
+function drawMeteors() {
+    ctx.fillStyle = "red";
+    for (let i = 0; i < meteors.length; i++) {
+        ctx.fillRect(meteors[i].x, meteors[i].y, meteors[i].size, meteors[i].size);
+
+        // Atualiza a posição dos meteoros com base na direção
+        switch (meteors[i].direction) {
+            case 0: // Para os meteoros vindos da esquerda
+                meteors[i].x += meteors[i].speed;
+                break;
+            case 1: // Para os meteoros vindos de cima
+                meteors[i].y += meteors[i].speed;
+                break;
+        }
+
+        // Verifica colisões com a nave
+        if (meteors[i].y + meteors[i].size > shipY &&
+            meteors[i].y < shipY + shipHeight &&
+            meteors[i].x + meteors[i].size > shipX &&
+            meteors[i].x < shipX + shipWidth) {
+                gameOver = true;
+        }
+
+        // Remove meteoros que saem da tela
+        if (meteors[i].x > canvasWidth || meteors[i].y > canvasHeight) {
+            meteors.splice(i, 1);
+        }
+    }
+}
+
 // Função para exibir o "Game Over" e pontuação
 function displayGameOver() {
     document.getElementById('gameOver').style.display = "block";  // Exibe o Game Over
@@ -150,7 +204,6 @@ function gameLoop() {
         return;
     }
 
-
     // Atualiza a posição da nave
     shipX += shipVelocityX;
     shipY += shipVelocityY;
@@ -167,6 +220,7 @@ function gameLoop() {
     // Desenha a nave e os asteroides
     drawShip();
     drawAsteroids();
+    drawMeteors();
 
     // Exibe a pontuação
     document.getElementById('score').innerText = "Pontuação: " + score;
@@ -175,6 +229,13 @@ function gameLoop() {
     // Aumenta a quantidade de asteroides conforme o tempo
     if (Math.random() < 0.1 + (gameTime / 3000)) { // Chance aumenta conforme o tempo
         createAsteroid();
+    }
+
+    // Cria meteoro vermelho a cada 500 pontos
+    if (score % 500 === 0 && score > 0 && meteors.length === 0) {
+        createRedMeteor();
+        createRedMeteor();
+        createRedMeteor();
     }
 
     // Atualiza o cronômetro
@@ -192,6 +253,7 @@ function restartGame() {
     score = 0; // Reinicia a pontuação para 0
     gameTime = 0;
     asteroids = [];
+    meteors = []; // Limpa os meteoros
     gameOver = false;
     document.getElementById('gameOver').style.display = "none"; // Oculta o Game Over
     document.getElementById('score').style.display = "block"; // Exibe a pontuação
