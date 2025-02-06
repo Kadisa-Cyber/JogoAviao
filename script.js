@@ -1,9 +1,9 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const shipWidth = 20;  // Nave menor
-const shipHeight = 20;
-const asteroidSize = 10; // Asteroides bem pequenos
+const shipWidth = 10;  // Nave menor
+const shipHeight = 10;
+const asteroidSize = 5; // Asteroides bem pequenos
 const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 
@@ -122,9 +122,11 @@ function drawAsteroids() {
 
 // Função para exibir o "Game Over" e pontuação
 function displayGameOver() {
-    document.getElementById('gameOver').style.display = "block";
-    document.getElementById('score').style.display = "none";
-    document.getElementById('timer').style.display = "none";
+    document.getElementById('gameOver').style.display = "block";  // Exibe o Game Over
+    document.getElementById('score').style.display = "none";      // Oculta a pontuação
+    document.getElementById('timer').style.display = "none";      // Oculta o timer
+    document.getElementById('maxScore').style.display = "block";  // Exibe a pontuação máxima
+    document.getElementById('restartButton').style.display = "block"; // Exibe o botão de reinício
 }
 
 // Função para atualizar o cronômetro
@@ -137,7 +139,7 @@ function updateTimer() {
 function updateMaxScore() {
     if (score > maxScore) {
         maxScore = score;
-        document.getElementById('maxScore').innerText = "Pontuação Máxima: " + maxScore;
+        document.getElementById('maxScore').innerText = "Pontuação Máxima: " + score;
         localStorage.setItem('maxScore', maxScore); // Salva a nova pontuação máxima no localStorage
     }
 }
@@ -186,14 +188,16 @@ function gameLoop() {
 
 // Função para reiniciar o jogo
 function restartGame() {
-    score = 0;
+    score = 0; // Reinicia a pontuação para 0
     gameTime = 0;
     asteroids = [];
     gameOver = false;
-    document.getElementById('gameOver').style.display = "none";
-    document.getElementById('score').style.display = "block";
-    document.getElementById('timer').style.display = "block";
-    gameLoop();
+    document.getElementById('gameOver').style.display = "none"; // Oculta o Game Over
+    document.getElementById('score').style.display = "block"; // Exibe a pontuação
+    document.getElementById('timer').style.display = "block"; // Exibe o timer
+    document.getElementById('maxScore').style.display = "block"; // Exibe a pontuação máxima
+    document.getElementById('restartButton').style.display = "none"; // Oculta o botão de reinício
+    gameLoop(); // Inicia o jogo novamente
 }
 
 // Inicia o jogo
