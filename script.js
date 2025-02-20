@@ -234,15 +234,6 @@ function gameLoop() {
     // Cria meteoro vermelho a cada 500 pontos
     if (score % 500 === 0 && score > 0 && meteors.length === 0) {
         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
-         createRedMeteor();
         createRedMeteor();
         createRedMeteor();
     }
