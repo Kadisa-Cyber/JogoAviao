@@ -236,18 +236,6 @@ function gameLoop() {
         createRedMeteor();
         createRedMeteor();
         createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
-        createRedMeteor();
     }
 
     // Atualiza o cronômetro
