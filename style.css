@@ -9,7 +9,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #0a0a0a;
+    background-color: #150320;
     color: white;
     text-align: center;
 }
@@ -36,4 +36,8 @@ body {
 #score, #maxScore, #timer {
     margin-top: 10px;
     font-size: 20px;
+}
+
+.podio{
+    left: 50px;
 }

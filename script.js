@@ -101,7 +101,7 @@ function createRedMeteor() {
 
 // Função para desenhar a nave
 function drawShip() {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "yellow";
     ctx.fillRect(shipX, shipY, shipWidth, shipHeight);
 }
 
@@ -232,7 +232,7 @@ function gameLoop() {
     }
 
     // Cria meteoro vermelho a cada 500 pontos
-    if (score % 100 === 0 && score > 0 && meteors.length === 0) {
+    if (score % 500 === 0 && score > 0 && meteors.length === 0) {
         createRedMeteor();
         createRedMeteor();
         createRedMeteor();
